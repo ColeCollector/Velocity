@@ -1,0 +1,597 @@
+{
+    "1": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "2": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "3": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "4": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "5": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "6": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "7": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "8": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "9": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "10": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "11": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "12": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "13": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "14": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "15": {
+        "target_rect": [
+            0,
+            242
+        ]
+    },
+    "16": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                240,
+                "ghost"
+            ]
+        ]
+    },
+    "17": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                339,
+                "moving"
+            ]
+        ]
+    },
+    "18": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                221,
+                "moving"
+            ]
+        ]
+    },
+    "19": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                305,
+                "moving"
+            ]
+        ]
+    },
+    "20": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                150,
+                "ghost"
+            ]
+        ]
+    },
+    "21": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                202,
+                "moving"
+            ]
+        ]
+    },
+    "22": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                340,
+                "moving"
+            ]
+        ]
+    },
+    "23": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                260,
+                "moving"
+            ]
+        ]
+    },
+    "24": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                175,
+                "moving"
+            ]
+        ]
+    },
+    "25": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                252,
+                "ghost"
+            ]
+        ]
+    },
+    "26": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                158,
+                "moving"
+            ]
+        ]
+    },
+    "27": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                287,
+                "moving"
+            ]
+        ]
+    },
+    "28": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                195,
+                "moving"
+            ]
+        ]
+    },
+    "29": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                304,
+                "ghost"
+            ]
+        ]
+    },
+    "30": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                230,
+                "ghost"
+            ]
+        ]
+    },
+    "31": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                317,
+                "moving"
+            ]
+        ]
+    },
+    "32": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                186,
+                "moving"
+            ]
+        ]
+    },
+    "33": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                334,
+                "moving"
+            ]
+        ]
+    },
+    "34": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                216,
+                "ghost"
+            ]
+        ]
+    },
+    "35": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                323,
+                "ghost"
+            ]
+        ]
+    },
+    "36": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                221,
+                "ghost"
+            ]
+        ]
+    },
+    "37": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                301,
+                "moving"
+            ],
+            [
+                25,
+                197,
+                "ghost"
+            ]
+        ]
+    },
+    "38": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                251,
+                "moving"
+            ],
+            [
+                25,
+                306,
+                "moving"
+            ]
+        ]
+    },
+    "39": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                227,
+                "moving"
+            ],
+            [
+                25,
+                327,
+                "ghost"
+            ]
+        ]
+    },
+    "40": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                166,
+                "moving"
+            ],
+            [
+                25,
+                268,
+                "moving"
+            ]
+        ]
+    },
+    "41": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                196,
+                "ghost"
+            ],
+            [
+                25,
+                284,
+                "moving"
+            ]
+        ]
+    },
+    "42": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                191,
+                "ghost"
+            ]
+        ]
+    },
+    "43": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                310,
+                "moving"
+            ]
+        ]
+    },
+    "44": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                217,
+                "moving"
+            ],
+            [
+                25,
+                303,
+                "moving"
+            ]
+        ]
+    },
+    "45": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                243,
+                "ghost"
+            ],
+            [
+                25,
+                325,
+                "moving"
+            ]
+        ]
+    },
+    "46": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                165,
+                "moving"
+            ],
+            [
+                25,
+                334,
+                "ghost"
+            ]
+        ]
+    },
+    "47": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                183,
+                "ghost"
+            ]
+        ]
+    },
+    "48": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                283,
+                "moving"
+            ],
+            [
+                25,
+                228,
+                "moving"
+            ]
+        ]
+    },
+    "49": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                156,
+                "ghost"
+            ]
+        ]
+    },
+    "50": {
+        "target_rect": [
+            0,
+            242
+        ],
+        "obstacle_rect": [
+            [
+                25,
+                264,
+                "moving"
+            ],
+            [
+                25,
+                201,
+                "ghost"
+            ]
+        ]
+    }
+}
