@@ -9,8 +9,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.properties import NumericProperty, ListProperty
 from kivy.graphics import Ellipse, Rectangle, Color, RoundedRectangle
 from kivy.uix.screenmanager import Screen
-import json
-import random
+import json, random, math
 
 WIDTH = 360
 HEIGHT = 640
@@ -105,10 +104,18 @@ class LevelScreen(Screen):
                 # Update completed levels
                 button.background_normal = 'assets/check.png'
                 button.text = ''  # Remove text if needed
+                button.background_color = (1.0, 1.0, 1.0, 1)
+
+            elif level > 25 and math.floor(len(self.completed) / 25) * 25 < level:
+                button.background_normal = 'assets/lock.png'
+                button.text = str(level)
+                button.background_color = (0.8, 0.8, 0.8, 1)
+
             else:
                 # Update uncompleted levels (optional if the state hasn't changed)
                 button.background_normal = ''
                 button.text = str(level)
+                button.background_color = (0.8, 0.8, 0.8, 1)
 
         self.scroll_view.scroll_x = 0
         Clock.schedule_interval(self.update, 1 / 60)  # 60 FPS

@@ -15,7 +15,7 @@ def reset_target():
         rnum = (random.randint(150, HEIGHT - 300))
 
     target_rect[1] = rnum
-    return target_rect
+    return [0, rnum]
 
 def reset_obstacle():
     global obstacle_rect
@@ -33,8 +33,9 @@ for i in range(1, 16):
     lst[str(i)] = {"target_rect": reset_target()}
 
 for i in range(16, 51):
-    if random.randint(16, i) > 30:
+    if random.randint(16, i) > 28:
         lst[str(i)] = {"target_rect": reset_target(), "obstacle_rect": [reset_obstacle(), reset_obstacle()]}
+        print("1")
     else:
         lst[str(i)] = {"target_rect": reset_target(), "obstacle_rect": [reset_obstacle()]}
 
