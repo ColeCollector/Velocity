@@ -242,7 +242,7 @@ class GameScreen(Screen):
 
     def load_level(self):
         # Load level data
-        with open("level_data.json", "r") as file:
+        with open("level_data1.json", "r") as file:
             level_data = json.load(file)
 
         level_info = level_data.get(str(self.level), {})
@@ -331,11 +331,8 @@ class GameScreen(Screen):
                 obstacle['color'].a = 1 if self.ground_touches == 1 else 0.5
     
             elif obstacle['type'] == 'moving':
-                if obstacle['rect'].pos[0] > WIDTH - obstacle["width"] / 2:
-                    obstacle["velocity"] = -3
-
-                elif obstacle['rect'].pos[0] < - obstacle["width"] * 0.5 :
-                    obstacle["velocity"] = 3
+                if (obstacle['rect'].pos[0] > WIDTH - obstacle["width"] / 2) or (obstacle['rect'].pos[0] < - obstacle["width"] * 0.5):
+                    obstacle["velocity"] *= -1
 
                 obstacle['rect'].pos = (obstacle['rect'].pos[0] + obstacle["velocity"], obstacle['rect'].pos[1])
 
