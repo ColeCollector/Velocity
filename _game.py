@@ -255,11 +255,16 @@ class GameScreen(Screen):
         self.obstacles.clear()
 
         # Generate obstacles
-        obstacles = level_info.get("obstacle_rect", [(25, -15, None)])  # Default to one stationary obstacle
+        obstacles = level_info.get("obstacle_rect", [(25, -15, None, None)])  # Default to one stationary obstacle
         with self.canvas:
-            for x, y, obstacle_type in obstacles:
-                color = Color(1, 1, 1, 1)
-                obstacle_width = WIDTH - 250 if obstacle_type == "moving" else WIDTH - 50
+            for x, y, obstacle_type, velocity in obstacles:
+                
+                obstacle_width = WIDTH - 50 if obstacle_type == "ghost" else WIDTH - 250
+                if obstacle_type == 'bouncy':
+                    color = Color(1, 0.5, 0.72, 1)
+                else:
+                    color = Color(1, 1, 1, 1)
+
                 rect = RoundedRectangle(pos=(x, y), size=(obstacle_width, 15), radius=[10] * 4)
                 
                 # Add obstacle to the list with relevant properties
@@ -268,7 +273,7 @@ class GameScreen(Screen):
                     "width": obstacle_width,
                     "color": color,
                     "type": obstacle_type,
-                    "velocity": random.choice([-3, 3]) if obstacle_type == "moving" else 0
+                    "velocity": velocity
                 })
 
     def on_enter(self):
@@ -315,9 +320,11 @@ class GameScreen(Screen):
     def update(self, dt):
         """Update the ball's position and velocity."""
         # Gravity
+        self.ball_velocity = max(min(self.ball_velocity, 30), -30)
+ 
         self.ball_velocity += self.gravity
         self.ball_y += self.ball_velocity
-        
+        print(self.ball_velocity)
         # Check for collision with the ground
         if self.ball_y < 50:  # Ground level is 50
             self.ground_touches += 1
@@ -327,32 +334,37 @@ class GameScreen(Screen):
         self.height_color.a = max(0, self.height_color.a - (1 / 120))
 
         for obstacle in self.obstacles:
+            obstacle_bounciness = self.bounciness
+
             if obstacle['type'] == 'ghost':
                 obstacle['color'].a = 1 if self.ground_touches == 1 else 0.5
     
-            elif obstacle['type'] == 'moving':
+            elif obstacle['type'] in ['moving', 'bouncy']:
                 if (obstacle['rect'].pos[0] > WIDTH - obstacle["width"] / 2) or (obstacle['rect'].pos[0] < - obstacle["width"] * 0.5):
                     obstacle["velocity"] *= -1
 
                 obstacle['rect'].pos = (obstacle['rect'].pos[0] + obstacle["velocity"], obstacle['rect'].pos[1])
 
+                if obstacle['type'] == 'bouncy':
+                    obstacle_bounciness = 1.6
+            
             # Check for collision with the obstacle
             if obstacle['color'].a == 1:
                 obstacle_top = obstacle['rect'].pos[1] + 15
                 obstacle_bottom = obstacle['rect'].pos[1]
                 next_frame = self.ball_y + self.ball_velocity + self.gravity
 
-                if (WIDTH / 2 > obstacle['rect'].pos[0]) and (WIDTH / 2 < obstacle['rect'].pos[0] + obstacle["width"]):
+                if obstacle['rect'].pos[0] - 10 < WIDTH / 2 < obstacle['rect'].pos[0] + obstacle["width"] + 10:
                     # Bounce off the top
-                    if (self.ball_y + 0.5 >= obstacle_top and next_frame - 25 <= obstacle_bottom and self.ball_velocity <= 0):
+                    if (self.ball_y + 0.5 >= obstacle_top and next_frame - 30 <= obstacle_bottom and self.ball_velocity <= 0):
                         self.ball_y = obstacle_top
-                        self.ball_velocity = -self.ball_velocity * self.bounciness
+                        self.ball_velocity = -self.ball_velocity * obstacle_bounciness
                         self.hit = True
 
                     # Bounce off the bottom
-                    elif (self.ball_y < obstacle_top and next_frame + 25 > obstacle_bottom and self.ball_velocity > 0):
-                        self.ball_y = obstacle_bottom - 25
-                        self.ball_velocity = -self.ball_velocity * self.bounciness
+                    elif (self.ball_y <= obstacle_top and next_frame + 30 >= obstacle_bottom and self.ball_velocity > 0):
+                        self.ball_y = obstacle_bottom - 30
+                        self.ball_velocity = -self.ball_velocity * obstacle_bounciness
                         self.hit = True
 
         if round(self.ball_velocity) == 0 and self.ball_velocity > 0 and (self.ground_touches == 1 or self.hit):
@@ -360,7 +372,7 @@ class GameScreen(Screen):
             self.height_color.a = 0.5
             self.hit = False 
 
-            if self.ball_y >= self.target_rect.pos[1] and self.ball_y + 20 <= self.target_rect.pos[1] + 70 and self.level < 50:
+            if self.ball_y >= self.target_rect.pos[1] and self.ball_y + 20 <= self.target_rect.pos[1] + 70 and self.level < 75:
                 self.increment_level()
 
         # Menu rectangle logic
