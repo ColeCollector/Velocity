@@ -3,14 +3,14 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.core.audio import SoundLoader
-from kivy.uix.gridlayout import GridLayout
 from kivy.graphics import Rectangle, Color
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from _game import LevelScreen, GameScreen
+from _settings import WIDTH, HEIGHT, MULTIPLIER
 
 # Set the window size
-Window.size = (360, 640)
-Window.orientation = 'portrait'
+Window.size = (WIDTH, HEIGHT)
+Window.orientation = "portrait"
 
 # To-do
 # - Add shadows
@@ -20,7 +20,7 @@ Window.orientation = 'portrait'
 class TitleScreen(Screen):
     def __init__(self, **kwargs):
         super(TitleScreen, self).__init__(**kwargs)
-        self.sound = SoundLoader.load('assets/click.wav')
+        self.sound = SoundLoader.load("assets/click.wav")
         self.sound.volume = 0.1
         with self.canvas:
             # Draw background
@@ -33,20 +33,21 @@ class TitleScreen(Screen):
         # Create and manually position title text
         self.title_label = Label(
             text="Velocity",
-            font_size=40,
+            font_size=40 * MULTIPLIER,
             font_name="assets/ASHBW___.ttf",
             size_hint=(None, None),
             size=(300, 50),
-            pos=(30, 400),
+            pos=(WIDTH / 2 - 150, 400 * MULTIPLIER),
         )
         self.add_widget(self.title_label)
 
         # Create and manually position play button
         self.play_button = Button(
             text="Play",
+            font_size=15 * MULTIPLIER,
             size_hint=(None, None),
-            size=(200, 50),
-            pos=(80, 300),
+            size=(200 * MULTIPLIER, 50 * MULTIPLIER),
+            pos=(WIDTH / 2 - 100 * MULTIPLIER, 300 * MULTIPLIER),
             on_press=self.start_game,
         )
         self.add_widget(self.play_button)

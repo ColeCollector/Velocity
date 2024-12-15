@@ -1,6 +1,7 @@
 from kivy.clock import Clock
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from kivy.core.audio import SoundLoader
 from kivy.uix.boxlayout import BoxLayout
@@ -9,10 +10,9 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.properties import NumericProperty, ListProperty
 from kivy.graphics import Ellipse, Rectangle, Color, RoundedRectangle
 from kivy.uix.screenmanager import Screen
-import json, random, math
+from _settings import WIDTH, HEIGHT, MULTIPLIER
+import json, math
 
-WIDTH = 360
-HEIGHT = 640
 
 class LevelScreen(Screen):
     def __init__(self, **kwargs):
@@ -27,11 +27,13 @@ class LevelScreen(Screen):
             self.bg = Rectangle(size=self.size, pos=self.pos)
 
             Color(0.8, 0.8, 0.8, 1)
-            for b in range(3):
-                Ellipse(pos=(WIDTH / 2 - 37 + b * 30, 100), size=(14, 14))
+            for i in range(3):
+                Ellipse(pos=(WIDTH / 2 - 37 + i * 30, 100), size=(14, 14))
 
             Color(1, 1, 1, 1)
             self.page_number = Ellipse(pos=(WIDTH / 2 - 37 , 100), size=(14, 14))
+
+            self.init_label()
 
         # Bind size and position changes to update the background
         self.bind(size=self.update_bg, pos=self.update_bg)
@@ -39,17 +41,29 @@ class LevelScreen(Screen):
         # Create and manually position title text
         self.title_label = Label(
             text="Levels",
-            font_size=40,
+            font_size=40 * MULTIPLIER,
             font_name="assets/ASHBW___.ttf",
             size_hint=(None, None),
-            size=(360, 50),
+            size=(360 * MULTIPLIER, 50 * MULTIPLIER),
             color=(0.7, 0.7, 0.7, 1),
-            pos=(0, 500),
+            pos=(0, 500 * MULTIPLIER),
         )
         self.add_widget(self.title_label)
 
         # Add scrollable level menu
         self.create_scrollable_level_menu()
+
+    def init_label(self):
+        self.completed_label = Label(
+            text=f"{len(self.completed)}",
+            font_size=30 * MULTIPLIER,
+            font_name="assets/ASHBW___.ttf",
+            color=(1, 1, 1, 1),
+            size_hint=(None, None),
+        )
+        self.completed_label.x = 0
+        self.completed_label.top = HEIGHT
+        self.add_widget(self.completed_label)
 
     def update(self, dt):
         page_number = max(0, min(int(self.scroll_view.scroll_x * 3), 2))
@@ -61,25 +75,27 @@ class LevelScreen(Screen):
 
     def create_scrollable_level_menu(self):
         # Create a horizontal BoxLayout to hold multiple grids
-        scroll_layout = BoxLayout(orientation='horizontal', size_hint=(None, None), spacing=50)
-        scroll_layout.size = (1220, 400)  # Adjust the total width as needed
-        scroll_layout.pos = (15, 120)   # Position in the middle of the screen
+        scroll_layout = BoxLayout(orientation="horizontal", size_hint=(None, None), spacing=50)
+        scroll_layout.size = (1220 * MULTIPLIER, 400 * MULTIPLIER)  # Adjust the total width as needed
+        scroll_layout.pos = (15 * MULTIPLIER, 120 * MULTIPLIER)   # Position in the middle of the screen
 
         self.buttons = {}
 
         # Add grids to the layout
         for page in range(3):
-            grid = GridLayout(cols=5, rows=5, spacing=15, padding=10, size_hint=(None, None))
-            grid.size = (360, 360)
+            grid = GridLayout(cols=5, rows=5, spacing=15 * MULTIPLIER, padding=10 * MULTIPLIER, size_hint=(None, None))
+            grid.size = (360 * MULTIPLIER, 360 * MULTIPLIER)
 
             for level in range(1 + page * 25, 26 + page * 25 ):
                 button = Button(
+                    border=(0,0,0,0),
                     text=str(level),
+                    font_size= 15 * MULTIPLIER,
                     font_name="assets/ASHBM___.ttf",
                     size_hint=(None, None),
-                    size=(50, 50),
+                    size=(50 * MULTIPLIER, 50 * MULTIPLIER),
                     color= (1, 1, 1, 1),
-                    background_normal='',
+                    background_normal="",
                     background_color=(0.8, 0.8, 0.8, 1),
                 )
                 button.bind(on_press=lambda btn, lvl=level: self.select_level(lvl))
@@ -89,7 +105,7 @@ class LevelScreen(Screen):
             scroll_layout.add_widget(grid)
 
         # Wrap the BoxLayout in a ScrollView
-        self.scroll_view = ScrollView(size_hint=(None, None), size=(400, 400), pos=(15, 120))
+        self.scroll_view = ScrollView(size_hint=(None, None), size=(400 * MULTIPLIER, 400 * MULTIPLIER), pos=(15 * MULTIPLIER, 120 * MULTIPLIER))
         self.scroll_view.bar_width = 0
         self.scroll_view.add_widget(scroll_layout)
         self.add_widget(self.scroll_view)
@@ -98,22 +114,21 @@ class LevelScreen(Screen):
         sm = self.manager
         game_screen = sm.get_screen("game")
         self.completed = game_screen.completed
-
+        self.completed_label.text = f"{len(self.completed)}"
         for level, button in self.buttons.items():
             if level in self.completed:
                 # Update completed levels
-                button.background_normal = 'assets/check.png'
-                button.text = ''  # Remove text if needed
+                button.background_normal = "assets/check.png"
+                button.text = ""  # Remove text if needed
                 button.background_color = (1.0, 1.0, 1.0, 1)
 
-            elif level > 25 and math.floor(len(self.completed) / 25) * 25 < level:
-                button.background_normal = 'assets/lock.png'
+            elif (math.floor(len(self.completed) / 25) + 1) * 25 < level:
+                button.background_normal = "assets/lock.png"
                 button.text = str(level)
                 button.background_color = (0.8, 0.8, 0.8, 1)
 
             else:
-                # Update uncompleted levels (optional if the state hasn't changed)
-                button.background_normal = ''
+                button.background_normal = ""
                 button.text = str(level)
                 button.background_color = (0.8, 0.8, 0.8, 1)
 
@@ -124,14 +139,16 @@ class LevelScreen(Screen):
         Clock.unschedule(self.update)
     
     def select_level(self, level):
-        self.level = level
-        self.manager.current = "game"
+        if (math.floor(len(self.completed) / 25) + 1) * 25 >= level:
+            self.level = level
+            self.manager.current = "game"
 
 class GameScreen(Screen):
-    ball_y = NumericProperty(50)  # Ball's vertical position
-    ball_velocity = NumericProperty(0)  # Ball's current velocity
-    gravity = NumericProperty(-0.5)  # Gravity force
-    jump_strength = NumericProperty(10)  # Jump strength
+    ball_y = NumericProperty(50 * MULTIPLIER)  # Ball"s vertical position
+    ball_velocity = NumericProperty(0)  # Ball"s current velocity
+    ball_size = 30 * MULTIPLIER
+    gravity = NumericProperty(-0.5 * MULTIPLIER)  # Gravity force
+    jump_strength = NumericProperty(10 * MULTIPLIER)  # Jump strength
     bounciness = NumericProperty(0.8)  # Bounciness factor
     level = NumericProperty(1)  # level
     counter = NumericProperty(0) # Frame counter
@@ -144,7 +161,7 @@ class GameScreen(Screen):
         super(GameScreen, self).__init__(**kwargs)
         self.menu_moving_down = False  
         self.hit = False
-        self.sound = {"level_up" : SoundLoader.load('assets/level_up1.wav'), "kick" : SoundLoader.load('assets/kick.wav')}
+        self.sound = {"level_up" : SoundLoader.load("assets/level_up1.wav"), "kick" : SoundLoader.load("assets/kick.wav")}
         self.sound["level_up"].volume = 0.5
         self.sound["kick"].volume = 0.1
 
@@ -161,54 +178,53 @@ class GameScreen(Screen):
             
             # Draw the target height rectangle
             Color(1.0, 1.0, 0.0, 0.5)
-            self.target_rect = Rectangle(pos=(0, 0), size=(WIDTH, 70))
+            self.target_rect = Rectangle(pos=(0, 0), size=(WIDTH, 70 * MULTIPLIER))
 
             # Draw the height peak rectangle
             self.height_color = Color(1, 0, 0, 0.5)
-            self.height_rect = Rectangle(pos=(0, -50), size=(WIDTH, 20))
+            self.height_rect = Rectangle(pos=(0, -50), size=(WIDTH, 20 * MULTIPLIER))
 
             # Draw the obstacle rectangle
             self.load_level()
 
             # Draw the ball
             Color(0.45, 0.45, 0.45, 1)  
-            self.ball = Ellipse(pos=(180 - 15, self.ball_y), size=(30, 30))
-
-            # Draw the ground 
-            Color(1, 1, 1, 1)
-            self.ground = RoundedRectangle(pos=(25, 35), size=(WIDTH - 50, 15), radius = [10] * 4)
+            self.ball = Ellipse(pos=(WIDTH / 2 - self.ball_size / 2, self.ball_y), size=(self.ball_size, self.ball_size))
 
             # Draw the level at the top
             self.init_level_label()
 
             # Draw the menu rectangle
             Color(0.9, 0.9, 0.9, 1) 
-            self.menu = Rectangle(pos=(0, HEIGHT), size=(360, 60))
+            self.menu = Rectangle(pos=(0, HEIGHT), size=(360 * MULTIPLIER, 60 * MULTIPLIER))
 
             self.menu_button = Button(
+                border=(0,0,0,0),
                 size_hint=(None, None),
-                size=(40, 40),
-                pos=(10, HEIGHT + 10),
-                background_normal='assets/menu_button.png',
-                on_press=lambda instance: setattr(self.manager, 'current', 'title'),
+                size=(40 * MULTIPLIER, 40 * MULTIPLIER),
+                pos=(10 * MULTIPLIER, HEIGHT + 10 * MULTIPLIER),
+                background_normal="assets/menu_button.png",
+                on_press=lambda instance: setattr(self.manager, "current", "title"),
             )
             self.add_widget(self.menu_button)
 
             self.reset_button = Button(
+                border=(0,0,0,0),
                 size_hint=(None, None),
-                size=(40, 40),
-                pos=(60, HEIGHT + 10),
-                background_normal='assets/reset_button.png',
+                size=(40 * MULTIPLIER, 40 * MULTIPLIER),
+                pos=(60 * MULTIPLIER, HEIGHT + 10 * MULTIPLIER),
+                background_normal="assets/reset_button.png",
                 on_press=self.reset,
             )
             self.add_widget(self.reset_button)
 
             self.level_button = Button(
+                border=(0,0,0,0),
                 size_hint=(None, None),
-                size=(40, 40),
-                pos=(110, HEIGHT + 10),
-                background_normal='assets/level_button.png',
-                on_press=lambda instance: setattr(self.manager, 'current', 'level'),
+                size=(40 * MULTIPLIER, 40 * MULTIPLIER),
+                pos=(110 * MULTIPLIER, HEIGHT + 10 * MULTIPLIER),
+                background_normal="assets/level_button.png",
+                on_press=lambda instance: setattr(self.manager, "current", "level"),
             )
             self.add_widget(self.level_button)
 
@@ -216,13 +232,13 @@ class GameScreen(Screen):
         """Initialize the level label at the top of the screen."""
         self.level_label = Label(
             text=f"{self.level}",
-            font_size=60,
+            font_size=60 * MULTIPLIER,
             font_name="assets/ASHBW___.ttf",
             color=(1, 1, 1, 1),
             size_hint=(None, None),
         )
         self.level_label.x = (WIDTH - self.level_label.width) / 2
-        self.level_label.top = HEIGHT - 10  # Set 10px from the top
+        self.level_label.top = HEIGHT - 10 * MULTIPLIER # Set 10px from the top
         self.add_widget(self.level_label)
 
     def on_touch(self, instance, touch):
@@ -234,6 +250,9 @@ class GameScreen(Screen):
             self.ball_velocity = self.jump_strength
             self.ground_touches = 0
             self.hit = False
+            
+            for obstacle in self.obstacles:
+                self.collision(obstacle)
 
     def reset(self, instance):
         """Reset the ball position and velocity"""
@@ -246,7 +265,8 @@ class GameScreen(Screen):
             level_data = json.load(file)
 
         level_info = level_data.get(str(self.level), {})
-        self.target_rect.pos = level_info.get("target_rect", (0, 0))
+        self.target_rect.pos = (level_info.get("target_rect", (0, 0))[0] * MULTIPLIER,
+                                level_info.get("target_rect", (0, 0))[1] * MULTIPLIER)
 
         # Clear existing obstacles
         for rect_data in self.obstacles:
@@ -257,20 +277,31 @@ class GameScreen(Screen):
         # Generate obstacles
         obstacles = level_info.get("obstacle_rect", [(25, -15, None, None)])  # Default to one stationary obstacle
         with self.canvas:
+
+            color = Color(1, 1, 1, 1)
+            rect = RoundedRectangle(pos=(25 * MULTIPLIER, 35 * MULTIPLIER), size=(WIDTH - 50 * MULTIPLIER, 15 * MULTIPLIER), radius = [10 * MULTIPLIER] * 4)
+            self.obstacles.append({
+                "rect": rect,
+                "size": [WIDTH - 50 * MULTIPLIER, 15 * MULTIPLIER],
+                "color": color,
+                "type": "ground",
+                "velocity": 0
+            })
+
             for x, y, obstacle_type, velocity in obstacles:
                 
-                obstacle_width = WIDTH - 50 if obstacle_type == "ghost" else WIDTH - 250
-                if obstacle_type == 'bouncy':
-                    color = Color(1, 0.5, 0.72, 1)
-                else:
-                    color = Color(1, 1, 1, 1)
+                obstacle_width = WIDTH - 50 * MULTIPLIER if obstacle_type in ["ghost", "water"] else WIDTH - 250 * MULTIPLIER 
+                obstacle_height = 30 * MULTIPLIER if obstacle_type == "water" else 15 * MULTIPLIER 
+                if obstacle_type == "bouncy":   color = Color(1, 0.5, 0.72, 1)
+                elif obstacle_type == "water":  color = Color(0, 0.3, 1, 0.5)
+                else:                           color = Color(1, 1, 1, 1)
 
-                rect = RoundedRectangle(pos=(x, y), size=(obstacle_width, 15), radius=[10] * 4)
+                rect = RoundedRectangle(pos=(x * MULTIPLIER, y * MULTIPLIER), size=(obstacle_width, obstacle_height), radius=[10 * MULTIPLIER] * 4)
                 
                 # Add obstacle to the list with relevant properties
                 self.obstacles.append({
                     "rect": rect,
-                    "width": obstacle_width,
+                    "size": [obstacle_width, obstacle_height],
                     "color": color,
                     "type": obstacle_type,
                     "velocity": velocity
@@ -293,19 +324,23 @@ class GameScreen(Screen):
     def increment_level(self):
         """Increment the level and update the label."""
         self.sound["level_up"].play()
-        self.completed.append(self.level)
-        self.level += 1
-        self.level_label.text = f"{self.level}"
-        self.load_level()
+
+        if self.level not in self.completed:
+            self.completed.append(self.level)
+
+        if self.level < 75:
+            self.level += 1
+            self.level_label.text = f"{self.level}"
+            self.load_level()
 
     def add_trail(self):
         """Add the current ball position to the trail."""
-        self.trail.append({"pos": (180, self.ball_y + 15), "opacity": 0.5, "size": 30})  # Centered
+        self.trail.append({"pos": (WIDTH / 2, self.ball_y + self.ball_size / 2), "opacity": 0.5, "size": self.ball_size})  # Centered
         if len(self.trail) > 10:  # Limit trail length
             self.trail.pop(0)
 
     def render_trail(self):
-        """Render the ball's trail."""
+        """Render the ball"s trail."""
         self.dynamic_canvas.canvas.clear()
         with self.dynamic_canvas.canvas:
             for trail_point in self.trail[::-1]:
@@ -316,63 +351,63 @@ class GameScreen(Screen):
                     trail_point["opacity"] -= 0.05
 
                 trail_point["size"] -= 0.5
+    
+    def collision(self, obstacle):
+        if obstacle["color"].a == 1:
+            obstacle_bounciness = 1.6 if  obstacle["type"] == "bouncy" else self.bounciness
+            obstacle_top = obstacle["rect"].pos[1] + obstacle["size"][1]
+            obstacle_bottom = obstacle["rect"].pos[1] - self.ball_size
+            next_frame = self.ball_y + self.ball_velocity + self.gravity 
+            
+            if obstacle["rect"].pos[0] - self.ball_size / 2 < WIDTH / 2 < obstacle["rect"].pos[0] + obstacle["size"][0] + self.ball_size / 2:
+                # Bounce off the top
+                if (self.ball_y + 0.5 * MULTIPLIER >= obstacle_top and next_frame <= obstacle_top and self.ball_velocity <= 0):
+                    self.ball_y = obstacle_top
+                    self.ball_velocity = -self.ball_velocity * obstacle_bounciness
+                    
+                    if obstacle["type"] == "ground": self.ground_touches += 1
+                    else: self.hit = True
 
+                # Bounce off the bottom
+                elif (self.ball_y <= obstacle_bottom and next_frame >= obstacle_bottom and self.ball_velocity > 0):
+                    self.ball_y = obstacle_bottom
+                    self.ball_velocity = -self.ball_velocity * obstacle_bounciness
+                    
+                    if obstacle["type"] == "ground": self.ground_touches += 1
+                    else: self.hit = True
+                    
     def update(self, dt):
-        """Update the ball's position and velocity."""
+        """Update the ball"s position and velocity."""
         # Gravity
-        self.ball_velocity = max(min(self.ball_velocity, 30), -30)
- 
+        self.ball_velocity = max(min(self.ball_velocity, 30 * MULTIPLIER), -30 * MULTIPLIER)
         self.ball_velocity += self.gravity
         self.ball_y += self.ball_velocity
-        print(self.ball_velocity)
-        # Check for collision with the ground
-        if self.ball_y < 50:  # Ground level is 50
-            self.ground_touches += 1
-            self.ball_y = 50
-            self.ball_velocity = -self.ball_velocity * self.bounciness
 
         self.height_color.a = max(0, self.height_color.a - (1 / 120))
 
         for obstacle in self.obstacles:
-            obstacle_bounciness = self.bounciness
-
-            if obstacle['type'] == 'ghost':
-                obstacle['color'].a = 1 if self.ground_touches == 1 else 0.5
+            if obstacle["type"] == "ghost":
+                obstacle["color"].a = 1 if self.ground_touches == 1 else 0.5
     
-            elif obstacle['type'] in ['moving', 'bouncy']:
-                if (obstacle['rect'].pos[0] > WIDTH - obstacle["width"] / 2) or (obstacle['rect'].pos[0] < - obstacle["width"] * 0.5):
+            elif obstacle["type"] in ["moving", "bouncy"]:
+                if (obstacle["rect"].pos[0] > WIDTH - obstacle["size"][0] / 2) or (obstacle["rect"].pos[0] < - obstacle["size"][0] * 0.5):
                     obstacle["velocity"] *= -1
 
-                obstacle['rect'].pos = (obstacle['rect'].pos[0] + obstacle["velocity"], obstacle['rect'].pos[1])
+                obstacle["rect"].pos = (obstacle["rect"].pos[0] + obstacle["velocity"], obstacle["rect"].pos[1])
 
-                if obstacle['type'] == 'bouncy':
-                    obstacle_bounciness = 1.6
-            
+            elif obstacle["type"] == "water":
+                if self.ball_y > obstacle["rect"].pos[1] - self.ball_size and self.ball_y < obstacle["rect"].pos[1] + obstacle["size"][1]:
+                    self.ball_velocity *= 0.8
+
             # Check for collision with the obstacle
-            if obstacle['color'].a == 1:
-                obstacle_top = obstacle['rect'].pos[1] + 15
-                obstacle_bottom = obstacle['rect'].pos[1]
-                next_frame = self.ball_y + self.ball_velocity + self.gravity
+            self.collision(obstacle)
 
-                if obstacle['rect'].pos[0] - 10 < WIDTH / 2 < obstacle['rect'].pos[0] + obstacle["width"] + 10:
-                    # Bounce off the top
-                    if (self.ball_y + 0.5 >= obstacle_top and next_frame - 30 <= obstacle_bottom and self.ball_velocity <= 0):
-                        self.ball_y = obstacle_top
-                        self.ball_velocity = -self.ball_velocity * obstacle_bounciness
-                        self.hit = True
-
-                    # Bounce off the bottom
-                    elif (self.ball_y <= obstacle_top and next_frame + 30 >= obstacle_bottom and self.ball_velocity > 0):
-                        self.ball_y = obstacle_bottom - 30
-                        self.ball_velocity = -self.ball_velocity * obstacle_bounciness
-                        self.hit = True
-
-        if round(self.ball_velocity) == 0 and self.ball_velocity > 0 and (self.ground_touches == 1 or self.hit):
+        if round(self.ball_velocity / MULTIPLIER) == 0 and self.ball_velocity > 0 and (self.ground_touches == 1 or self.hit):
             self.height_rect.pos = (0, self.ball_y)
             self.height_color.a = 0.5
             self.hit = False 
 
-            if self.ball_y >= self.target_rect.pos[1] and self.ball_y + 20 <= self.target_rect.pos[1] + 70 and self.level < 75:
+            if self.ball_y >= self.target_rect.pos[1] and self.ball_y + 20 * MULTIPLIER <= self.target_rect.pos[1] + 70 * MULTIPLIER:
                 self.increment_level()
 
         # Menu rectangle logic
@@ -380,9 +415,9 @@ class GameScreen(Screen):
 
         if self.menu_moving_down:
             self.line_hit_counter += 1
-            if self.menu.pos[1] > 580: 
+            if self.menu.pos[1] >  HEIGHT - 60 * MULTIPLIER: 
                 for button in self.menu_buttons:
-                    button.pos = (button.pos[0], button.pos[1] - 2)
+                    button.pos = (button.pos[0], button.pos[1] - 2 * MULTIPLIER)
 
             elif self.line_hit_counter >= 180:  # After 3 seconds, close the menu
                 self.menu_moving_down = False
@@ -398,7 +433,7 @@ class GameScreen(Screen):
         if self.counter % 2 == 0:
             self.add_trail()
 
-        self.ball.pos = (WIDTH / 2 - 15, self.ball_y)
+        self.ball.pos = (WIDTH / 2 - self.ball_size / 2, self.ball_y)
         self.render_trail()
 
 if __name__ == "__main__":
