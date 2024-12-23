@@ -139,20 +139,21 @@ class LevelScreen(Screen):
         Clock.unschedule(self.update)
     
     def select_level(self, level):
-        if (math.floor(len(self.completed) / 25) + 1) * 25 >= level:
+        if (math.floor(len(self.completed) / 25) + 1) * 25 >= level or True:
             self.level = level
             self.manager.current = "game"
 
 class GameScreen(Screen):
-    ball_y = NumericProperty(50 * MULTIPLIER)  # Ball"s vertical position
-    ball_velocity = NumericProperty(0)  # Ball"s current velocity
-    ball_size = 30 * MULTIPLIER
+    ball_size = 40 * MULTIPLIER
+    ball_y = ListProperty([100, 100])  # Ball"s vertical position
+    ball_x = ListProperty([WIDTH / 4 - ball_size / 2, WIDTH / 4 * 3 - ball_size / 2]) 
+    ball_velocity = ListProperty([0, 0])  # Ball"s current velocity
     gravity = NumericProperty(-0.5 * MULTIPLIER)  # Gravity force
     jump_strength = NumericProperty(10 * MULTIPLIER)  # Jump strength
     bounciness = NumericProperty(0.8)  # Bounciness factor
     level = NumericProperty(1)  # level
     counter = NumericProperty(0) # Frame counter
-    ground_touches = NumericProperty(0) # Number of times the ball has touched the ground
+    ground_touches = ListProperty([0, 0]) # Number of times the ball has touched the ground
     trail = ListProperty([]) # Trailing balls
     completed  = ListProperty([]) # Completed levels
     obstacles = ListProperty([]) # White rectangles
@@ -160,7 +161,7 @@ class GameScreen(Screen):
     def __init__(self, **kwargs):
         super(GameScreen, self).__init__(**kwargs)
         self.menu_moving_down = False  
-        self.hit = False
+        self.hit = [False, False]
         self.sound = {"level_up" : SoundLoader.load("assets/level_up1.wav"), "kick" : SoundLoader.load("assets/kick.wav")}
         self.sound["level_up"].volume = 0.5
         self.sound["kick"].volume = 0.1
@@ -173,31 +174,31 @@ class GameScreen(Screen):
     def init_canvas(self):
         """Initialize the visual elements of the game."""
         with self.canvas:
-            Color(0.75, 0.75, 0.75, 1)
-            self.background_rect = Rectangle(pos=(0, 0), size=(WIDTH, HEIGHT))
+            Color(0.8, 0.8, 0.8, 1)
+            self.left_half = Rectangle(pos=(0, 0), size=(WIDTH / 2, HEIGHT))
             
+            Color(0.9, 0.9, 0.9, 1)
+            self.right_half = Rectangle(pos=(WIDTH / 2, 0), size=(WIDTH / 2, HEIGHT))
+
             # Draw the target height rectangle
             Color(1.0, 1.0, 0.0, 0.5)
             self.target_rect = Rectangle(pos=(0, 0), size=(WIDTH, 70 * MULTIPLIER))
 
             # Draw the height peak rectangle
-            self.height_color = Color(1, 0, 0, 0.5)
+            self.height_color = Color(0.85, 0, 0.2, 0.5)  
             self.height_rect = Rectangle(pos=(0, -50), size=(WIDTH, 20 * MULTIPLIER))
 
             # Draw the obstacle rectangle
             self.load_level()
 
             # Draw the ball
-            Color(0.45, 0.45, 0.45, 1)  
-            self.ball = Ellipse(pos=(WIDTH / 2 - self.ball_size / 2, self.ball_y), size=(self.ball_size, self.ball_size))
+            Color(0.85, 0, 0.2, 1)  
+            self.ball1 = Ellipse(pos=(self.ball_x[0], self.ball_y[0]), size=(self.ball_size, self.ball_size))
+            self.ball2 = Ellipse(pos=(self.ball_x[1], self.ball_y[1]), size=(self.ball_size, self.ball_size))
 
             # Draw the level at the top
             self.init_level_label()
-
-            # Draw the menu rectangle
-            Color(0.9, 0.9, 0.9, 1) 
-            self.menu = Rectangle(pos=(0, HEIGHT), size=(360 * MULTIPLIER, 60 * MULTIPLIER))
-
+            
             self.menu_button = Button(
                 border=(0,0,0,0),
                 size_hint=(None, None),
@@ -246,18 +247,25 @@ class GameScreen(Screen):
         if touch.y > HEIGHT * 0.9:
             self.menu_moving_down = True
         else:
+            if touch.x < WIDTH / 2:
+                self.ball_velocity[0] = self.jump_strength
+                self.ground_touches[0] = 0
+                self.hit[0] = False
+            else:
+                self.ball_velocity[1] = self.jump_strength
+                self.ground_touches[1] = 0
+                self.hit[1] = False
+
             self.menu_moving_down = False
-            self.ball_velocity = self.jump_strength
-            self.ground_touches = 0
-            self.hit = False
             
             for obstacle in self.obstacles:
                 self.collision(obstacle)
 
     def reset(self, instance):
         """Reset the ball position and velocity"""
-        self.ball_y = 150
-        self.ball_velocity = 0
+        pass
+        #self.ball_y = 150
+        #self.ball_velocity = 0
 
     def load_level(self):
         # Load level data
@@ -290,10 +298,9 @@ class GameScreen(Screen):
 
             for x, y, obstacle_type, velocity in obstacles:
                 
-                obstacle_width = WIDTH - 50 * MULTIPLIER if obstacle_type in ["ghost", "water"] else WIDTH - 250 * MULTIPLIER 
-                obstacle_height = 30 * MULTIPLIER if obstacle_type == "water" else 15 * MULTIPLIER 
+                obstacle_width = WIDTH - 50 * MULTIPLIER if obstacle_type in ["ghost"] else WIDTH - 250 * MULTIPLIER 
+                obstacle_height = 15 * MULTIPLIER 
                 if obstacle_type == "bouncy":   color = Color(1, 0.5, 0.72, 1)
-                elif obstacle_type == "water":  color = Color(0, 0.3, 1, 0.5)
                 else:                           color = Color(1, 1, 1, 1)
 
                 rect = RoundedRectangle(pos=(x * MULTIPLIER, y * MULTIPLIER), size=(obstacle_width, obstacle_height), radius=[10 * MULTIPLIER] * 4)
@@ -329,22 +336,26 @@ class GameScreen(Screen):
             self.completed.append(self.level)
 
         if self.level < 75:
+            self.ground_touches = [0, 0]
             self.level += 1
             self.level_label.text = f"{self.level}"
             self.load_level()
 
     def add_trail(self):
         """Add the current ball position to the trail."""
-        self.trail.append({"pos": (WIDTH / 2, self.ball_y + self.ball_size / 2), "opacity": 0.5, "size": self.ball_size})  # Centered
-        if len(self.trail) > 10:  # Limit trail length
+        if len(self.trail) > 15:  # Limit trail length
             self.trail.pop(0)
+            self.trail.pop(0)
+
+        for i in range(2):
+            self.trail.append({"pos": (self.ball_x[i] + self.ball_size / 2, self.ball_y[i] + self.ball_size / 2), "opacity": 0.5, "size": self.ball_size})  # Centered
 
     def render_trail(self):
         """Render the ball"s trail."""
         self.dynamic_canvas.canvas.clear()
         with self.dynamic_canvas.canvas:
             for trail_point in self.trail[::-1]:
-                Color(0.45, 0.45, 0.45, trail_point["opacity"])  # Semi-transparent red
+                Color(0.85, 0, 0.2, trail_point["opacity"])
                 Ellipse(pos=(trail_point["pos"][0] - trail_point["size"] / 2, trail_point["pos"][1] - trail_point["size"] / 2), size=(trail_point["size"], trail_point["size"]))
 
                 if self.trail.index(trail_point) > 5:
@@ -354,68 +365,74 @@ class GameScreen(Screen):
     
     def collision(self, obstacle):
         if obstacle["color"].a == 1:
-            obstacle_bounciness = 1.6 if  obstacle["type"] == "bouncy" else self.bounciness
-            obstacle_top = obstacle["rect"].pos[1] + obstacle["size"][1]
-            obstacle_bottom = obstacle["rect"].pos[1] - self.ball_size
-            next_frame = self.ball_y + self.ball_velocity + self.gravity 
-            
-            if obstacle["rect"].pos[0] - self.ball_size / 2 < WIDTH / 2 < obstacle["rect"].pos[0] + obstacle["size"][0] + self.ball_size / 2:
-                # Bounce off the top
-                if (self.ball_y + 0.5 * MULTIPLIER >= obstacle_top and next_frame <= obstacle_top and self.ball_velocity <= 0):
-                    self.ball_y = obstacle_top
-                    self.ball_velocity = -self.ball_velocity * obstacle_bounciness
-                    
-                    if obstacle["type"] == "ground": self.ground_touches += 1
-                    else: self.hit = True
+            for i in range(2):
+                obstacle_bounciness = 1.3 if  obstacle["type"] == "bouncy" else self.bounciness
+                obstacle_top = obstacle["rect"].pos[1] + obstacle["size"][1]
+                obstacle_bottom = obstacle["rect"].pos[1] - self.ball_size
+                next_frame = self.ball_y[i] + self.ball_velocity[i] + self.gravity 
+                
+                if obstacle["rect"].pos[0] - self.ball_size < self.ball_x[i] < obstacle["rect"].pos[0] + obstacle["size"][0]:
+                    # Bounce off the top
+                    if (self.ball_y[i] + 0.5 * MULTIPLIER >= obstacle_top and next_frame <= obstacle_top and self.ball_velocity[i] <= 0):
+                        self.ball_y[i] = obstacle_top
+                        self.ball_velocity[i] *= -obstacle_bounciness
+                        self.ground_touches[i] += 1
 
-                # Bounce off the bottom
-                elif (self.ball_y <= obstacle_bottom and next_frame >= obstacle_bottom and self.ball_velocity > 0):
-                    self.ball_y = obstacle_bottom
-                    self.ball_velocity = -self.ball_velocity * obstacle_bounciness
-                    
-                    if obstacle["type"] == "ground": self.ground_touches += 1
-                    else: self.hit = True
-                    
+                    # Bounce off the bottom
+                    elif (self.ball_y[i] <= obstacle_bottom and next_frame >= obstacle_bottom and self.ball_velocity[i] > 0):
+                        self.ball_y[i] = obstacle_bottom
+                        self.ball_velocity[i] *= -obstacle_bounciness
+                        
+                        if obstacle["type"] == "ground": self.ground_touches[i] += 1
+                        else: self.hit[i] = True
+
+                elif obstacle["type"] == "switch":
+                    if self.ball_y[i] > obstacle["rect"].pos[1] - self.ball_size and self.ball_y[i] < obstacle["rect"].pos[1] + obstacle["size"][1] and self.ball_velocity[i] > 0:
+                        if obstacle["velocity"] == 0:
+                            obstacle["velocity"] = -5 + 10*i
+
     def update(self, dt):
         """Update the ball"s position and velocity."""
         # Gravity
-        self.ball_velocity = max(min(self.ball_velocity, 30 * MULTIPLIER), -30 * MULTIPLIER)
-        self.ball_velocity += self.gravity
-        self.ball_y += self.ball_velocity
+        for i in range(2):
+            self.ball_velocity[i] = max(min(self.ball_velocity[i], 20 * MULTIPLIER), -20 * MULTIPLIER)
+            self.ball_velocity[i] += self.gravity
+            self.ball_y[i] = min(self.ball_y[i] + self.ball_velocity[i], HEIGHT - self.ball_size)
 
         self.height_color.a = max(0, self.height_color.a - (1 / 120))
 
         for obstacle in self.obstacles:
             if obstacle["type"] == "ghost":
-                obstacle["color"].a = 1 if self.ground_touches == 1 else 0.5
+                obstacle["color"].a = 1 if 1 in self.ground_touches else 0.5
     
-            elif obstacle["type"] in ["moving", "bouncy"]:
-                if (obstacle["rect"].pos[0] > WIDTH - obstacle["size"][0] / 2) or (obstacle["rect"].pos[0] < - obstacle["size"][0] * 0.5):
-                    obstacle["velocity"] *= -1
-
+            elif obstacle["type"] in ["moving", "bouncy", "switch"]:
                 obstacle["rect"].pos = (obstacle["rect"].pos[0] + obstacle["velocity"], obstacle["rect"].pos[1])
-
-            elif obstacle["type"] == "water":
-                if self.ball_y > obstacle["rect"].pos[1] - self.ball_size and self.ball_y < obstacle["rect"].pos[1] + obstacle["size"][1]:
-                    self.ball_velocity *= 0.8
+                if obstacle["type"] == "switch":
+                    if (obstacle["rect"].pos[0] + 35 * MULTIPLIER > WIDTH - obstacle["size"][0] or obstacle["rect"].pos[0] < 35 * MULTIPLIER):
+                        obstacle["velocity"] = 0
+                else:
+                    if (obstacle["rect"].pos[0] + 35 * MULTIPLIER > WIDTH - obstacle["size"][0] / 2) or (obstacle["rect"].pos[0] < - obstacle["size"][0] / 2 + 35 * MULTIPLIER):
+                        obstacle["velocity"] *= -1
 
             # Check for collision with the obstacle
             self.collision(obstacle)
 
-        if round(self.ball_velocity / MULTIPLIER) == 0 and self.ball_velocity > 0 and (self.ground_touches == 1 or self.hit):
-            self.height_rect.pos = (0, self.ball_y)
-            self.height_color.a = 0.5
-            self.hit = False 
+        for i in range(2):
+            if round(self.ball_velocity[i] / MULTIPLIER) == 0 and self.ball_velocity[i] > 0 and (self.ground_touches[i] == 1 or self.hit[i]):
+                self.height_rect.pos = (0, self.ball_y[i])
+                self.height_color.a = 0.5
+                self.hit[i] = False 
 
-            if self.ball_y >= self.target_rect.pos[1] and self.ball_y + 20 * MULTIPLIER <= self.target_rect.pos[1] + 70 * MULTIPLIER:
-                self.increment_level()
+                if self.ball_y[i] >= self.target_rect.pos[1] and self.ball_y[i] + 20 * MULTIPLIER <= self.target_rect.pos[1] + 70 * MULTIPLIER:
+                    self.increment_level()
+                break
 
         # Menu rectangle logic
-        self.menu_buttons = [self.menu, self.menu_button, self.reset_button, self.level_button]
+        self.menu_buttons = [self.menu_button, self.reset_button, self.level_button]
 
         if self.menu_moving_down:
             self.line_hit_counter += 1
-            if self.menu.pos[1] >  HEIGHT - 60 * MULTIPLIER: 
+            if self.menu_button.pos[1] >  HEIGHT - 60 * MULTIPLIER: 
                 for button in self.menu_buttons:
                     button.pos = (button.pos[0], button.pos[1] - 2 * MULTIPLIER)
 
@@ -424,16 +441,17 @@ class GameScreen(Screen):
                 self.line_hit_counter = 0
         else:
             self.line_hit_counter = 0
-            if self.menu.pos[1] < HEIGHT: 
+            if self.menu_button.pos[1] < HEIGHT: 
                 for button in self.menu_buttons:
                     button.pos = (button.pos[0], button.pos[1] + 2)
 
-        self.counter += 1
         # Add a trail every second frame
         if self.counter % 2 == 0:
             self.add_trail()
-
-        self.ball.pos = (WIDTH / 2 - self.ball_size / 2, self.ball_y)
+        
+        self.counter += 1
+        self.ball1.pos = (self.ball_x[0], self.ball_y[0])
+        self.ball2.pos = (self.ball_x[1], self.ball_y[1])
         self.render_trail()
 
 if __name__ == "__main__":

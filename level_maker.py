@@ -32,7 +32,7 @@ def reset_obstacle(obstacle_type):
         rnum = (random.randint(150, default_max_height))
 
     obstacle_rects.append(rnum)
-    return [25, rnum, obstacle_type, random.choice([3,2,-3,-2])]
+    return [25, rnum, obstacle_type, random.choice([3,2,-3,-2]) if obstacle_type in ["moving", "bouncy"] else 0]
 
 levels = {}
 
@@ -41,14 +41,14 @@ for i in range(1, 16):
 
 for i in range(16, 76):
     obstacle_rects = []
-    obstacle_type = random.choice(["ghost", "moving", "bouncy", "water"])
+    obstacle_type = random.choice(["ghost", "moving", "switch"])
     obstacle_1 = reset_obstacle(obstacle_type)
     max_height = min(obstacle_rects[0] + 70, default_max_height) if obstacle_type == "ghost" else default_max_height
     
     if i > 50:
-        levels[str(i)] = {"obstacle_rect": [obstacle_1, reset_obstacle(random.choice(["moving", "bouncy"])), reset_obstacle(random.choice(["moving", "bouncy"]))], "target_rect": reset_target(max_height)}
+        levels[str(i)] = {"obstacle_rect": [obstacle_1, reset_obstacle(random.choice(["moving", "bouncy", "switch"])), reset_obstacle(random.choice(["moving", "bouncy", "switch"]))], "target_rect": reset_target(max_height)}
     elif i > 28:
-        levels[str(i)] = {"obstacle_rect": [obstacle_1, reset_obstacle(random.choice(["moving", "bouncy"]))], "target_rect": reset_target(max_height)}
+        levels[str(i)] = {"obstacle_rect": [obstacle_1, reset_obstacle(random.choice(["moving", "bouncy", "switch"]))], "target_rect": reset_target(max_height)}
     else:
         levels[str(i)] = {"obstacle_rect": [obstacle_1], "target_rect": reset_target(max_height)}
 

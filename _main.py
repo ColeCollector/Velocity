@@ -13,8 +13,11 @@ Window.size = (WIDTH, HEIGHT)
 Window.orientation = "portrait"
 
 # To-do
-# - Add shadows
+# - audio slider
+# - improved level screen
+# - shadows
 # - Maybe add other falling balls? that are ontop of each other or side by side 
+
 
 # Title Screen
 class TitleScreen(Screen):
