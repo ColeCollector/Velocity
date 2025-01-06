@@ -2,591 +2,1363 @@
     "1": {
         "target_rect": [
             0,
-            261
+            271
         ]
     },
     "2": {
         "target_rect": [
             0,
-            151
+            333
         ]
     },
     "3": {
         "target_rect": [
             0,
-            271
+            293
         ]
     },
     "4": {
         "target_rect": [
             0,
-            212
+            262
         ]
     },
     "5": {
         "target_rect": [
             0,
-            305
+            317
         ]
     },
     "6": {
         "target_rect": [
             0,
-            213
+            272
         ]
     },
     "7": {
         "target_rect": [
             0,
-            270
+            223
         ]
     },
     "8": {
         "target_rect": [
             0,
-            333
+            330
         ]
     },
     "9": {
         "target_rect": [
             0,
-            171
+            164
         ]
     },
     "10": {
         "target_rect": [
             0,
-            253
+            242
         ]
     },
     "11": {
         "target_rect": [
             0,
-            340
+            213
         ]
     },
     "12": {
         "target_rect": [
             0,
-            225
+            282
         ]
     },
     "13": {
         "target_rect": [
             0,
-            150
+            246
         ]
     },
     "14": {
         "target_rect": [
             0,
-            269
+            216
         ]
     },
     "15": {
         "target_rect": [
             0,
-            211
+            227
         ]
     },
     "16": {
+        "obstacle_rect": [
+            [
+                25,
+                156,
+                "switch",
+                0
+            ]
+        ],
         "target_rect": [
             0,
-            334
+            151
+        ]
+    },
+    "17": {
+        "obstacle_rect": [
+            [
+                25,
+                322,
+                "ghost",
+                0
+            ]
         ],
+        "target_rect": [
+            0,
+            162
+        ]
+    },
+    "18": {
+        "obstacle_rect": [
+            [
+                25,
+                318,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            316
+        ]
+    },
+    "19": {
         "obstacle_rect": [
             [
                 25,
                 206,
-                "moving"
+                "switch",
+                0
             ]
-        ]
-    },
-    "17": {
+        ],
         "target_rect": [
             0,
-            278
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                274,
-                "moving"
-            ]
-        ]
-    },
-    "18": {
-        "target_rect": [
-            0,
-            170
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                209,
-                "ghost"
-            ]
-        ]
-    },
-    "19": {
-        "target_rect": [
-            0,
-            250
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                180,
-                "ghost"
-            ]
+            297
         ]
     },
     "20": {
-        "target_rect": [
-            0,
-            167
-        ],
         "obstacle_rect": [
             [
                 25,
-                175,
-                "ghost"
+                279,
+                "switch",
+                0
             ]
+        ],
+        "target_rect": [
+            0,
+            313
         ]
     },
     "21": {
+        "obstacle_rect": [
+            [
+                25,
+                265,
+                "ghost",
+                0
+            ]
+        ],
         "target_rect": [
             0,
-            325
+            177
+        ]
+    },
+    "22": {
+        "obstacle_rect": [
+            [
+                25,
+                297,
+                "ghost",
+                0
+            ]
         ],
+        "target_rect": [
+            0,
+            234
+        ]
+    },
+    "23": {
+        "obstacle_rect": [
+            [
+                25,
+                276,
+                "moving",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            159
+        ]
+    },
+    "24": {
+        "obstacle_rect": [
+            [
+                25,
+                265,
+                "ghost",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            307
+        ]
+    },
+    "25": {
+        "obstacle_rect": [
+            [
+                25,
+                329,
+                "moving",
+                3
+            ]
+        ],
+        "target_rect": [
+            0,
+            205
+        ]
+    },
+    "26": {
+        "obstacle_rect": [
+            [
+                25,
+                285,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            262
+        ]
+    },
+    "27": {
         "obstacle_rect": [
             [
                 25,
                 284,
-                "moving"
+                "switch",
+                0
             ]
-        ]
-    },
-    "22": {
+        ],
         "target_rect": [
             0,
-            156
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                162,
-                "moving"
-            ]
-        ]
-    },
-    "23": {
-        "target_rect": [
-            0,
-            318
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                229,
-                "moving"
-            ]
-        ]
-    },
-    "24": {
-        "target_rect": [
-            0,
-            254
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                152,
-                "moving"
-            ]
-        ]
-    },
-    "25": {
-        "target_rect": [
-            0,
-            310
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                209,
-                "ghost"
-            ]
-        ]
-    },
-    "26": {
-        "target_rect": [
-            0,
-            169
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                273,
-                "moving"
-            ]
-        ]
-    },
-    "27": {
-        "target_rect": [
-            0,
-            321
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                168,
-                "moving"
-            ]
+            178
         ]
     },
     "28": {
-        "target_rect": [
-            0,
-            210
-        ],
         "obstacle_rect": [
             [
                 25,
-                307,
-                "ghost"
+                301,
+                "moving",
+                3
             ]
+        ],
+        "target_rect": [
+            0,
+            281
         ]
     },
     "29": {
-        "target_rect": [
-            0,
-            260
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                150,
-                "ghost"
-            ]
-        ]
-    },
-    "30": {
-        "target_rect": [
-            0,
-            214
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                274,
-                "moving"
-            ]
-        ]
-    },
-    "31": {
-        "target_rect": [
-            0,
-            267
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                217,
-                "ghost"
-            ]
-        ]
-    },
-    "32": {
-        "target_rect": [
-            0,
-            328
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                303,
-                "moving"
-            ]
-        ]
-    },
-    "33": {
-        "target_rect": [
-            0,
-            235
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                184,
-                "ghost"
-            ]
-        ]
-    },
-    "34": {
-        "target_rect": [
-            0,
-            308
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                235,
-                "ghost"
-            ]
-        ]
-    },
-    "35": {
-        "target_rect": [
-            0,
-            240
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                159,
-                "moving"
-            ],
-            [
-                25,
-                253,
-                "moving"
-            ]
-        ]
-    },
-    "36": {
-        "target_rect": [
-            0,
-            335
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                174,
-                "moving"
-            ],
-            [
-                25,
-                271,
-                "moving"
-            ]
-        ]
-    },
-    "37": {
-        "target_rect": [
-            0,
-            155
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                194,
-                "moving"
-            ]
-        ]
-    },
-    "38": {
-        "target_rect": [
-            0,
-            298
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                338,
-                "ghost"
-            ]
-        ]
-    },
-    "39": {
-        "target_rect": [
-            0,
-            245
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                209,
-                "moving"
-            ]
-        ]
-    },
-    "40": {
-        "target_rect": [
-            0,
-            163
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                262,
-                "ghost"
-            ],
-            [
-                25,
-                331,
-                "moving"
-            ]
-        ]
-    },
-    "41": {
-        "target_rect": [
-            0,
-            232
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                226,
-                "ghost"
-            ],
-            [
-                25,
-                162,
-                "ghost"
-            ]
-        ]
-    },
-    "42": {
-        "target_rect": [
-            0,
-            223
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                302,
-                "moving"
-            ]
-        ]
-    },
-    "43": {
-        "target_rect": [
-            0,
-            166
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                246,
-                "moving"
-            ]
-        ]
-    },
-    "44": {
-        "target_rect": [
-            0,
-            261
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                300,
-                "moving"
-            ],
-            [
-                25,
-                177,
-                "moving"
-            ]
-        ]
-    },
-    "45": {
-        "target_rect": [
-            0,
-            314
-        ],
-        "obstacle_rect": [
-            [
-                25,
-                270,
-                "ghost"
-            ]
-        ]
-    },
-    "46": {
-        "target_rect": [
-            0,
-            211
-        ],
         "obstacle_rect": [
             [
                 25,
                 170,
-                "ghost"
+                "switch",
+                0
             ],
             [
                 25,
-                316,
-                "ghost"
+                307,
+                "moving",
+                3
             ]
-        ]
-    },
-    "47": {
+        ],
         "target_rect": [
             0,
-            298
-        ],
+            285
+        ]
+    },
+    "30": {
         "obstacle_rect": [
             [
                 25,
-                199,
-                "moving"
+                282,
+                "ghost",
+                0
             ],
             [
                 25,
-                293,
-                "moving"
+                157,
+                "moving",
+                -2
             ]
-        ]
-    },
-    "48": {
+        ],
         "target_rect": [
             0,
-            226
-        ],
+            324
+        ]
+    },
+    "31": {
         "obstacle_rect": [
             [
                 25,
-                153,
-                "ghost"
+                236,
+                "ghost",
+                0
             ],
             [
                 25,
-                261,
-                "ghost"
+                340,
+                "bouncy",
+                3
             ]
-        ]
-    },
-    "49": {
+        ],
         "target_rect": [
             0,
-            321
-        ],
+            231
+        ]
+    },
+    "32": {
         "obstacle_rect": [
             [
                 25,
-                321,
-                "moving"
+                282,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                172,
+                "moving",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            289
+        ]
+    },
+    "33": {
+        "obstacle_rect": [
+            [
+                25,
+                265,
+                "switch",
+                0
+            ],
+            [
+                25,
+                204,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            176
+        ]
+    },
+    "34": {
+        "obstacle_rect": [
+            [
+                25,
+                190,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                310,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            237
+        ]
+    },
+    "35": {
+        "obstacle_rect": [
+            [
+                25,
+                192,
+                "moving",
+                3
+            ],
+            [
+                25,
+                328,
+                "bouncy",
+                -3
+            ]
+        ],
+        "target_rect": [
+            0,
+            334
+        ]
+    },
+    "36": {
+        "obstacle_rect": [
+            [
+                25,
+                235,
+                "switch",
+                0
             ],
             [
                 25,
                 176,
-                "ghost"
+                "switch",
+                0
             ]
-        ]
-    },
-    "50": {
+        ],
         "target_rect": [
             0,
-            238
-        ],
+            203
+        ]
+    },
+    "37": {
         "obstacle_rect": [
             [
                 25,
-                275,
-                "moving"
+                192,
+                "moving",
+                2
+            ],
+            [
+                25,
+                303,
+                "moving",
+                -2
             ]
+        ],
+        "target_rect": [
+            0,
+            260
+        ]
+    },
+    "38": {
+        "obstacle_rect": [
+            [
+                25,
+                247,
+                "switch",
+                0
+            ],
+            [
+                25,
+                155,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            207
+        ]
+    },
+    "39": {
+        "obstacle_rect": [
+            [
+                25,
+                197,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                277,
+                "bouncy",
+                3
+            ]
+        ],
+        "target_rect": [
+            0,
+            152
+        ]
+    },
+    "40": {
+        "obstacle_rect": [
+            [
+                25,
+                310,
+                "moving",
+                3
+            ],
+            [
+                25,
+                195,
+                "moving",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            312
+        ]
+    },
+    "41": {
+        "obstacle_rect": [
+            [
+                25,
+                162,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                222,
+                "bouncy",
+                3
+            ]
+        ],
+        "target_rect": [
+            0,
+            230
+        ]
+    },
+    "42": {
+        "obstacle_rect": [
+            [
+                25,
+                326,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                272,
+                "bouncy",
+                3
+            ]
+        ],
+        "target_rect": [
+            0,
+            318
+        ]
+    },
+    "43": {
+        "obstacle_rect": [
+            [
+                25,
+                282,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                167,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            226
+        ]
+    },
+    "44": {
+        "obstacle_rect": [
+            [
+                25,
+                225,
+                "switch",
+                0
+            ],
+            [
+                25,
+                321,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            156
+        ]
+    },
+    "45": {
+        "obstacle_rect": [
+            [
+                25,
+                327,
+                "moving",
+                -3
+            ],
+            [
+                25,
+                181,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            267
+        ]
+    },
+    "46": {
+        "obstacle_rect": [
+            [
+                25,
+                266,
+                "switch",
+                0
+            ],
+            [
+                25,
+                165,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            159
+        ]
+    },
+    "47": {
+        "obstacle_rect": [
+            [
+                25,
+                192,
+                "moving",
+                -2
+            ],
+            [
+                25,
+                335,
+                "bouncy",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            188
+        ]
+    },
+    "48": {
+        "obstacle_rect": [
+            [
+                25,
+                316,
+                "moving",
+                3
+            ],
+            [
+                25,
+                206,
+                "moving",
+                -3
+            ]
+        ],
+        "target_rect": [
+            0,
+            263
+        ]
+    },
+    "49": {
+        "obstacle_rect": [
+            [
+                25,
+                201,
+                "moving",
+                3
+            ],
+            [
+                25,
+                325,
+                "moving",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            272
+        ]
+    },
+    "50": {
+        "obstacle_rect": [
+            [
+                25,
+                290,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                221,
+                "moving",
+                2
+            ]
+        ],
+        "target_rect": [
+            0,
+            257
+        ]
+    },
+    "51": {
+        "obstacle_rect": [
+            [
+                25,
+                298,
+                "moving",
+                -3
+            ],
+            [
+                25,
+                157,
+                "switch",
+                0
+            ],
+            [
+                25,
+                247,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            270
+        ]
+    },
+    "52": {
+        "obstacle_rect": [
+            [
+                25,
+                283,
+                "switch",
+                0
+            ],
+            [
+                25,
+                163,
+                "moving",
+                3
+            ],
+            [
+                25,
+                226,
+                "moving",
+                3
+            ]
+        ],
+        "target_rect": [
+            0,
+            309
+        ]
+    },
+    "53": {
+        "obstacle_rect": [
+            [
+                25,
+                269,
+                "switch",
+                0
+            ],
+            [
+                25,
+                169,
+                "switch",
+                0
+            ],
+            [
+                25,
+                326,
+                "moving",
+                -3
+            ]
+        ],
+        "target_rect": [
+            0,
+            237
+        ]
+    },
+    "54": {
+        "obstacle_rect": [
+            [
+                25,
+                168,
+                "moving",
+                -3
+            ],
+            [
+                25,
+                285,
+                "bouncy",
+                -2
+            ],
+            [
+                25,
+                227,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            193
+        ]
+    },
+    "55": {
+        "obstacle_rect": [
+            [
+                25,
+                276,
+                "switch",
+                0
+            ],
+            [
+                25,
+                222,
+                "moving",
+                -3
+            ],
+            [
+                25,
+                157,
+                "moving",
+                3
+            ]
+        ],
+        "target_rect": [
+            0,
+            186
+        ]
+    },
+    "56": {
+        "obstacle_rect": [
+            [
+                25,
+                170,
+                "moving",
+                -3
+            ],
+            [
+                25,
+                321,
+                "moving",
+                -3
+            ],
+            [
+                25,
+                234,
+                "bouncy",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            336
+        ]
+    },
+    "57": {
+        "obstacle_rect": [
+            [
+                25,
+                271,
+                "moving",
+                3
+            ],
+            [
+                25,
+                324,
+                "switch",
+                0
+            ],
+            [
+                25,
+                173,
+                "bouncy",
+                -3
+            ]
+        ],
+        "target_rect": [
+            0,
+            281
+        ]
+    },
+    "58": {
+        "obstacle_rect": [
+            [
+                25,
+                214,
+                "switch",
+                0
+            ],
+            [
+                25,
+                305,
+                "switch",
+                0
+            ],
+            [
+                25,
+                162,
+                "bouncy",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            170
+        ]
+    },
+    "59": {
+        "obstacle_rect": [
+            [
+                25,
+                284,
+                "switch",
+                0
+            ],
+            [
+                25,
+                210,
+                "bouncy",
+                -3
+            ],
+            [
+                25,
+                339,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            298
+        ]
+    },
+    "60": {
+        "obstacle_rect": [
+            [
+                25,
+                279,
+                "switch",
+                0
+            ],
+            [
+                25,
+                213,
+                "bouncy",
+                2
+            ],
+            [
+                25,
+                340,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            220
+        ]
+    },
+    "61": {
+        "obstacle_rect": [
+            [
+                25,
+                203,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                264,
+                "switch",
+                0
+            ],
+            [
+                25,
+                323,
+                "bouncy",
+                2
+            ]
+        ],
+        "target_rect": [
+            0,
+            162
+        ]
+    },
+    "62": {
+        "obstacle_rect": [
+            [
+                25,
+                284,
+                "switch",
+                0
+            ],
+            [
+                25,
+                223,
+                "moving",
+                3
+            ],
+            [
+                25,
+                335,
+                "bouncy",
+                -3
+            ]
+        ],
+        "target_rect": [
+            0,
+            236
+        ]
+    },
+    "63": {
+        "obstacle_rect": [
+            [
+                25,
+                157,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                217,
+                "moving",
+                -3
+            ],
+            [
+                25,
+                305,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            173
+        ]
+    },
+    "64": {
+        "obstacle_rect": [
+            [
+                25,
+                297,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                164,
+                "bouncy",
+                2
+            ],
+            [
+                25,
+                229,
+                "moving",
+                -3
+            ]
+        ],
+        "target_rect": [
+            0,
+            218
+        ]
+    },
+    "65": {
+        "obstacle_rect": [
+            [
+                25,
+                265,
+                "moving",
+                2
+            ],
+            [
+                25,
+                317,
+                "switch",
+                0
+            ],
+            [
+                25,
+                162,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            314
+        ]
+    },
+    "66": {
+        "obstacle_rect": [
+            [
+                25,
+                178,
+                "moving",
+                2
+            ],
+            [
+                25,
+                283,
+                "moving",
+                3
+            ],
+            [
+                25,
+                230,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            165
+        ]
+    },
+    "67": {
+        "obstacle_rect": [
+            [
+                25,
+                196,
+                "moving",
+                2
+            ],
+            [
+                25,
+                334,
+                "switch",
+                0
+            ],
+            [
+                25,
+                280,
+                "moving",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            151
+        ]
+    },
+    "68": {
+        "obstacle_rect": [
+            [
+                25,
+                257,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                169,
+                "switch",
+                0
+            ],
+            [
+                25,
+                328,
+                "moving",
+                3
+            ]
+        ],
+        "target_rect": [
+            0,
+            209
+        ]
+    },
+    "69": {
+        "obstacle_rect": [
+            [
+                25,
+                223,
+                "switch",
+                0
+            ],
+            [
+                25,
+                280,
+                "switch",
+                0
+            ],
+            [
+                25,
+                169,
+                "bouncy",
+                3
+            ]
+        ],
+        "target_rect": [
+            0,
+            245
+        ]
+    },
+    "70": {
+        "obstacle_rect": [
+            [
+                25,
+                336,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                150,
+                "moving",
+                3
+            ],
+            [
+                25,
+                226,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            172
+        ]
+    },
+    "71": {
+        "obstacle_rect": [
+            [
+                25,
+                169,
+                "moving",
+                -2
+            ],
+            [
+                25,
+                335,
+                "moving",
+                2
+            ],
+            [
+                25,
+                258,
+                "bouncy",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            304
+        ]
+    },
+    "72": {
+        "obstacle_rect": [
+            [
+                25,
+                282,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                188,
+                "switch",
+                0
+            ],
+            [
+                25,
+                333,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            319
+        ]
+    },
+    "73": {
+        "obstacle_rect": [
+            [
+                25,
+                197,
+                "switch",
+                0
+            ],
+            [
+                25,
+                275,
+                "moving",
+                -3
+            ],
+            [
+                25,
+                334,
+                "switch",
+                0
+            ]
+        ],
+        "target_rect": [
+            0,
+            179
+        ]
+    },
+    "74": {
+        "obstacle_rect": [
+            [
+                25,
+                327,
+                "moving",
+                -3
+            ],
+            [
+                25,
+                271,
+                "bouncy",
+                3
+            ],
+            [
+                25,
+                185,
+                "bouncy",
+                -2
+            ]
+        ],
+        "target_rect": [
+            0,
+            272
+        ]
+    },
+    "75": {
+        "obstacle_rect": [
+            [
+                25,
+                191,
+                "ghost",
+                0
+            ],
+            [
+                25,
+                288,
+                "moving",
+                2
+            ],
+            [
+                25,
+                339,
+                "moving",
+                -3
+            ]
+        ],
+        "target_rect": [
+            0,
+            191
         ]
     }
 }

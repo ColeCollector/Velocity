@@ -397,7 +397,7 @@ class GameScreen(Screen):
         for i in range(2):
             self.ball_velocity[i] = max(min(self.ball_velocity[i], 20 * MULTIPLIER), -20 * MULTIPLIER)
             self.ball_velocity[i] += self.gravity
-            self.ball_y[i] = min(self.ball_y[i] + self.ball_velocity[i], HEIGHT - self.ball_size)
+            self.ball_y[i] = min(self.ball_y[i] + self.ball_velocity[i], HEIGHT - self.ball_size / 2)
 
         self.height_color.a = max(0, self.height_color.a - (1 / 120))
 

@@ -32,7 +32,7 @@ def reset_obstacle(obstacle_type):
         rnum = (random.randint(150, default_max_height))
 
     obstacle_rects.append(rnum)
-    return [25, rnum, obstacle_type, random.choice([3,2,-3,-2]) if obstacle_type in ["moving", "bouncy"] else 0]
+    return [25, rnum, obstacle_type, random.choice([3,2,1,-1,-2,-3]) if obstacle_type in ["moving", "bouncy"] else 0]
 
 levels = {}
 
