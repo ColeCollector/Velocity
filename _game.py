@@ -1,7 +1,6 @@
 from kivy.clock import Clock
 from kivy.uix.label import Label
 from kivy.uix.button import Button
-from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from kivy.core.audio import SoundLoader
 from kivy.uix.boxlayout import BoxLayout
@@ -33,7 +32,7 @@ class LevelScreen(Screen):
             Color(1, 1, 1, 1)
             self.page_number = Ellipse(pos=(WIDTH / 2 - 37 , 100), size=(14, 14))
 
-            self.init_label()
+            #self.init_label()
 
         # Bind size and position changes to update the background
         self.bind(size=self.update_bg, pos=self.update_bg)
@@ -114,7 +113,7 @@ class LevelScreen(Screen):
         sm = self.manager
         game_screen = sm.get_screen("game")
         self.completed = game_screen.completed
-        self.completed_label.text = f"{len(self.completed)}"
+        #self.completed_label.text = f"{len(self.completed)}"
         for level, button in self.buttons.items():
             if level in self.completed:
                 # Update completed levels
@@ -199,6 +198,10 @@ class GameScreen(Screen):
             # Draw the level at the top
             self.init_level_label()
             
+            # Draw the menu rectangle
+            Color(0.93, 0.93, 0.93, 1) 
+            self.menu = Rectangle(pos=(0, HEIGHT), size=(360 * MULTIPLIER, 60 * MULTIPLIER))
+
             self.menu_button = Button(
                 border=(0,0,0,0),
                 size_hint=(None, None),
@@ -269,7 +272,7 @@ class GameScreen(Screen):
 
     def load_level(self):
         # Load level data
-        with open("level_data1.json", "r") as file:
+        with open("level_data.json", "r") as file:
             level_data = json.load(file)
 
         level_info = level_data.get(str(self.level), {})
@@ -428,11 +431,11 @@ class GameScreen(Screen):
                 break
 
         # Menu rectangle logic
-        self.menu_buttons = [self.menu_button, self.reset_button, self.level_button]
+        self.menu_buttons = [self.menu, self.menu_button, self.reset_button, self.level_button]
 
         if self.menu_moving_down:
             self.line_hit_counter += 1
-            if self.menu_button.pos[1] >  HEIGHT - 60 * MULTIPLIER: 
+            if self.menu.pos[1] >  HEIGHT - 60 * MULTIPLIER: 
                 for button in self.menu_buttons:
                     button.pos = (button.pos[0], button.pos[1] - 2 * MULTIPLIER)
 
@@ -441,7 +444,7 @@ class GameScreen(Screen):
                 self.line_hit_counter = 0
         else:
             self.line_hit_counter = 0
-            if self.menu_button.pos[1] < HEIGHT: 
+            if self.menu.pos[1] < HEIGHT: 
                 for button in self.menu_buttons:
                     button.pos = (button.pos[0], button.pos[1] + 2)
 

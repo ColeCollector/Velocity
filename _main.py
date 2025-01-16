@@ -15,8 +15,7 @@ Window.orientation = "portrait"
 # To-do
 # - audio slider
 # - improved level screen
-# - shadows
-# - Maybe add other falling balls? that are ontop of each other or side by side 
+# - shadows/animations
 
 
 # Title Screen
